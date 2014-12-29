@@ -56,29 +56,29 @@ function loadRegionPrices(priceIDs,regionID,cachebuster){
   });
   var parameters = {method : "get", payload : ""};
   
-  var i,j,temparray,chunk = 100;
+  var i,j,k,temparray,chunk = 100;
   for (i=0,j=cleanTypeIds.length; i < j; i+=chunk) {
     temparray = cleanTypeIds.slice(i,i+chunk);
     var xmlFeed = UrlFetchApp.fetch(url+temparray.join("&typeid="), parameters).getContentText();
     var xml = XmlService.parse(xmlFeed);
     if(xml) {
       var rows=xml.getRootElement().getChild("marketstat").getChildren("type");
-      for(var i = 0; i < rows.length; i++) {
-        var price=[parseInt(rows[i].getAttribute("id").getValue()),
-                   parseInt(rows[i].getChild("buy").getChild("volume").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("avg").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("max").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("min").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("stddev").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("median").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("percentile").getValue()),
-                   parseInt(rows[i].getChild("sell").getChild("volume").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("avg").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("max").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("min").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("stddev").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("median").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("percentile").getValue())];
+      for(var k = 0; k < rows.length; k++) {
+        var price=[parseInt(rows[k].getAttribute("id").getValue()),
+                   parseInt(rows[k].getChild("buy").getChild("volume").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("avg").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("max").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("min").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("stddev").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("median").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("percentile").getValue()),
+                   parseInt(rows[k].getChild("sell").getChild("volume").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("avg").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("max").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("min").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("stddev").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("median").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("percentile").getValue())];
         prices.push(price);
       }
     }
@@ -88,7 +88,7 @@ function loadRegionPrices(priceIDs,regionID,cachebuster){
 
 function loadSystemPrices(priceIDs,systemID,cachebuster){
   if (typeof systemID == 'undefined'){
-    regionID=30000142;
+    systemId=30000142;
   }
   if (typeof priceIDs == 'undefined'){
     throw 'need typeids';
@@ -99,7 +99,7 @@ function loadSystemPrices(priceIDs,systemID,cachebuster){
   var prices = new Array();
   var dirtyTypeIds = new Array();
   var cleanTypeIds = new Array();
-  var url="http://api.eve-central.com/api/marketstat?cachebuster="+cachebuster+"&usesystem="+regionID+"&typeid=";
+  var url="http://api.eve-central.com/api/marketstat?cachebuster="+cachebuster+"&usesystem="+systemID+"&typeid=";
   priceIDs.forEach (function (row) {
     row.forEach ( function (cell) {
       if (typeof(cell) === 'number' ) {
@@ -112,29 +112,29 @@ function loadSystemPrices(priceIDs,systemID,cachebuster){
   });
   var parameters = {method : "get", payload : ""};
   
-  var i,j,temparray,chunk = 100;
+  var i,j,k,temparray,chunk = 100;
   for (i=0,j=cleanTypeIds.length; i < j; i+=chunk) {
     temparray = cleanTypeIds.slice(i,i+chunk);
     var xmlFeed = UrlFetchApp.fetch(url+temparray.join("&typeid="), parameters).getContentText();
     var xml = XmlService.parse(xmlFeed);
     if(xml) {
       var rows=xml.getRootElement().getChild("marketstat").getChildren("type");
-      for(var i = 0; i < rows.length; i++) {
-        var price=[parseInt(rows[i].getAttribute("id").getValue()),
-                   parseInt(rows[i].getChild("buy").getChild("volume").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("avg").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("max").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("min").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("stddev").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("median").getValue()),
-                   parseFloat(rows[i].getChild("buy").getChild("percentile").getValue()),
-                   parseInt(rows[i].getChild("sell").getChild("volume").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("avg").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("max").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("min").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("stddev").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("median").getValue()),
-                   parseFloat(rows[i].getChild("sell").getChild("percentile").getValue())];
+      for(var k = 0; k < rows.length; k++) {
+        var price=[parseInt(rows[k].getAttribute("id").getValue()),
+                   parseInt(rows[k].getChild("buy").getChild("volume").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("avg").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("max").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("min").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("stddev").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("median").getValue()),
+                   parseFloat(rows[k].getChild("buy").getChild("percentile").getValue()),
+                   parseInt(rows[k].getChild("sell").getChild("volume").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("avg").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("max").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("min").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("stddev").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("median").getValue()),
+                   parseFloat(rows[k].getChild("sell").getChild("percentile").getValue())];
         prices.push(price);
       }
     }
